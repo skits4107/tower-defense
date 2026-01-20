@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://bs76k0di5g5g2"]
+
+[ext_resource type="Texture2D" uid="uid://bw1adbgrq0j3s" path="res://sprite/tower defense bg.png" id="1_lnu2h"]
+[ext_resource type="PackedScene" uid="uid://b0hxic4qnhr6h" path="res://scenes/baseTower.tscn" id="2_lnu2h"]
+[ext_resource type="Resource" uid="uid://oekyl2kryoba" path="res://resources/mage_tower.tres" id="3_lbhrr"]
+[ext_resource type="Script" uid="uid://cv7qhrkk1wyma" path="res://scripts/EnemyPath.gd" id="5_iywne"]
+
+[sub_resource type="Curve2D" id="Curve2D_p57ef"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -1, 358, 0, 0, 0, 0, 185, 353, 0, 0, 0, 0, 194, 153, 0, 0, 0, 0, 430, 156, 0, 0, 0, 0, 423, 418, 0, 0, 0, 0, 734, 415, 0, 0, 0, 0, 735, 289, 0, 0, 0, 0, 1228, 287)
+}
+point_count = 8
+
+[node name="Game" type="Node2D"]
+
+[node name="TowerDefenseBg" type="Sprite2D" parent="."]
+position = Vector2(576, 320.5)
+scale = Vector2(1.93, 1.6175)
+texture = ExtResource("1_lnu2h")
+
+[node name="Tower" parent="." instance=ExtResource("2_lnu2h")]
+position = Vector2(1076, 79)
+
+[node name="Tower2" parent="." instance=ExtResource("2_lnu2h")]
+position = Vector2(904, 82)
+stats = ExtResource("3_lbhrr")
+
+[node name="Path2D" type="Path2D" parent="."]
+curve = SubResource("Curve2D_p57ef")
+script = ExtResource("5_iywne")
+
+[node name="Area2D" type="Area2D" parent="Path2D"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Path2D/Area2D"]
+visible = false
+polygon = PackedVector2Array(2, 319, 145, 315, 152, 128, 452, 130, 456, 387, 686, 392, 694, 255, 1160, 252, 1161, 324, 778, 321, 774, 447, 381, 447, 383, 188, 232, 191, 226, 382, 0, 384)
