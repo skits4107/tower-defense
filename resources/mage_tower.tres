@@ -10,4 +10,5 @@ fire_range = 600.0
 damge = 5.0
 cost = 20
 sprite = ExtResource("2_a5ka1")
+sprite_scale = 2.0
 metadata/_custom_type_script = "uid://bv018xq5gl74c"

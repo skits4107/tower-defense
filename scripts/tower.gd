@@ -6,7 +6,7 @@ enum State {HOLDING, PLACED, BUYABLE}
 @export var stats:TowerStats;
 var state:State = State.BUYABLE
 
-var can_place:bool = true
+var is_placeable:bool = true
 
 @onready var sprite:Sprite2D = $"Tower Sprite"
 @onready var placement_area:Area2D = $placement_area
@@ -28,30 +28,37 @@ func _process(delta: float) -> void:
 		modulate = Color.GRAY
 	elif state == State.HOLDING:
 		position = get_global_mouse_position()
+		can_place()
 	else:
 		modulate = Color.WHITE
 
 
 func _on_placement_area_area_entered(area: Area2D) -> void:
 	var parent = area.get_parent()
-	if (parent and parent is Tower or parent is EnemyPath
-		and parent != self):
-		can_place = false
-		modulate = Color.RED
+	if (parent and parent != self and area.name != "range_area"):
 		colliding_with.append(parent)
 
 
 func _on_placement_area_area_exited(area: Area2D) -> void:
 	var parent = area.get_parent()
-	if (parent and parent is Tower or parent is EnemyPath
-		and parent != self):
-		can_place = true
+	if (parent and parent != self and area.name != "range_area"):
+		colliding_with.erase(parent)
+
+func can_place():
+	if colliding_with.is_empty():
+		is_placeable = true
 		modulate = Color.WHITE
+	else:
+		is_placeable = false
+		modulate = Color.RED
 
 func _on_placement_area_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.is_pressed():
+	if (event is InputEventMouseButton 
+	and event.button_index == MOUSE_BUTTON_LEFT 
+	and event.is_pressed()):
+		
 		print("mouse event")
-		if state == State.BUYABLE:
+		if state == State.BUYABLE and not GameManger.is_holding:
 			buy()
 		elif state == State.HOLDING:
 			place()
@@ -62,8 +69,10 @@ func buy():
 	var new_tower:Tower = self.duplicate()
 	get_tree().current_scene.add_child(new_tower)
 	new_tower.state = State.HOLDING
+	GameManger.is_holding = true
 	
 func place():
-	print(can_place)
-	if can_place:
+	print(is_placeable)
+	if is_placeable:
 		state = State.PLACED
+		GameManger.is_holding = false

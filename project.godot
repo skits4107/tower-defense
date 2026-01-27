@@ -14,3 +14,7 @@ config/name="stfff"
 run/main_scene="res://scenes/game.tscn"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://sprite/icon.svg"
+
+[autoload]
+
+GameManger="*res://GameManger.gd"
