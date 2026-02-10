@@ -14,6 +14,8 @@ var is_placeable:bool = true
 
 var colliding_with:Array[Node2D] = []
 
+var target:Enemy = null
+
 func _ready():
 	sprite.texture = stats.sprite
 	sprite.scale.x = stats.sprite_scale
@@ -21,6 +23,9 @@ func _ready():
 	
 	var range_circle:CircleShape2D = range_area.find_child("CollisionShape2D").shape
 	range_circle.radius = stats.fire_range
+	
+	var placement_circle:CircleShape2D = placement_area.find_child("CollisionShape2D").shape
+	placement_circle.radius *= stats.placement_area_scale
 
 
 func _process(delta: float) -> void:
@@ -31,6 +36,12 @@ func _process(delta: float) -> void:
 		can_place()
 	else:
 		modulate = Color.WHITE
+	
+	if state == State.PLACED and target:
+		shoot()
+
+func shoot():
+	pass
 
 
 func _on_placement_area_area_entered(area: Area2D) -> void:
@@ -76,3 +87,24 @@ func place():
 	if is_placeable:
 		state = State.PLACED
 		GameManger.is_holding = false
+
+
+func _on_range_area_area_entered(area: Area2D) -> void:
+	var parent = area.get_parent()
+	if not parent:
+		return
+	if parent is not Enemy:
+		return
+	
+	if not target:
+		target = parent
+		
+
+
+func _on_range_area_area_exited(area: Area2D) -> void:
+	var parent = area.get_parent()
+	if not parent:
+		return
+	
+	if target == parent:
+		target = null

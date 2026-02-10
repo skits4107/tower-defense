@@ -32,3 +32,5 @@ texture = ExtResource("2_sjy2x")
 [connection signal="area_entered" from="placement_area" to="." method="_on_placement_area_area_entered"]
 [connection signal="area_exited" from="placement_area" to="." method="_on_placement_area_area_exited"]
 [connection signal="input_event" from="placement_area" to="." method="_on_placement_area_input_event"]
+[connection signal="area_entered" from="range_area" to="." method="_on_range_area_area_entered"]
+[connection signal="area_exited" from="range_area" to="." method="_on_range_area_area_exited"]

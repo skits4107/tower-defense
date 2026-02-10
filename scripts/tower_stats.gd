@@ -11,3 +11,5 @@ extends Resource
 @export var bullet:PackedScene;
 
 @export var sprite_scale:float = 1.0
+
+@export var placement_area_scale:float = 1.0

@@ -1,10 +1,14 @@
-[gd_scene load_steps=7 format=3 uid="uid://bs76k0di5g5g2"]
+[gd_scene load_steps=11 format=3 uid="uid://bs76k0di5g5g2"]
 
 [ext_resource type="Texture2D" uid="uid://bw1adbgrq0j3s" path="res://sprite/tower defense bg.png" id="1_lnu2h"]
 [ext_resource type="PackedScene" uid="uid://b0hxic4qnhr6h" path="res://scenes/baseTower.tscn" id="2_lnu2h"]
 [ext_resource type="Resource" uid="uid://oekyl2kryoba" path="res://resources/mage_tower.tres" id="3_lbhrr"]
 [ext_resource type="Script" uid="uid://cv7qhrkk1wyma" path="res://scripts/EnemyPath.gd" id="5_iywne"]
 [ext_resource type="PackedScene" uid="uid://cvtx3mfxrynre" path="res://scenes/enemy.tscn" id="5_p57ef"]
+[ext_resource type="Script" uid="uid://b3d0bx4f4me5u" path="res://scripts/EnemyRes.gd" id="6_gee14"]
+[ext_resource type="Resource" uid="uid://mltwc55p6bq" path="res://resources/enemy1.tres" id="7_0tnpc"]
+[ext_resource type="Resource" uid="uid://dtewbp2oer3wj" path="res://resources/enemy2.tres" id="8_vtaks"]
+[ext_resource type="Resource" uid="uid://cr6c7nn2yaa11" path="res://resources/enemy3.tres" id="9_0tnpc"]
 
 [sub_resource type="Curve2D" id="Curve2D_p57ef"]
 _data = {
@@ -29,7 +33,8 @@ stats = ExtResource("3_lbhrr")
 [node name="Path2D" type="Path2D" parent="."]
 curve = SubResource("Curve2D_p57ef")
 script = ExtResource("5_iywne")
-enemy = ExtResource("5_p57ef")
+enemy_base = ExtResource("5_p57ef")
+enemy_types = Array[ExtResource("6_gee14")]([ExtResource("7_0tnpc"), ExtResource("8_vtaks"), ExtResource("9_0tnpc")])
 
 [node name="Area2D" type="Area2D" parent="Path2D"]
 

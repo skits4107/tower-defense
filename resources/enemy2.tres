@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="EnemyResource" load_steps=3 format=3 uid="uid://dtewbp2oer3wj"]
+
+[ext_resource type="Script" uid="uid://b3d0bx4f4me5u" path="res://scripts/EnemyRes.gd" id="1_56g10"]
+[ext_resource type="Texture2D" uid="uid://c4sov1wvw1i6l" path="res://sprite/dog.png" id="2_y1b1x"]
+
+[resource]
+script = ExtResource("1_56g10")
+sprite = ExtResource("2_y1b1x")
+damage = 10.0
+health = 50.0
+speed = 25.0
+spawn_weight = 0.5
+sprite_scale = 1.0
+metadata/_custom_type_script = "uid://b3d0bx4f4me5u"
