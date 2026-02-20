@@ -12,9 +12,14 @@ var is_placeable:bool = true
 @onready var placement_area:Area2D = $placement_area
 @onready var range_area:Area2D = $range_area
 
+@onready var bullet_scene:PackedScene = preload("res://scenes/bullet.tscn")
+
 var colliding_with:Array[Node2D] = []
 
 var target:Enemy = null
+
+var timer:Timer = Timer.new()
+var can_shoot = false
 
 func _ready():
 	sprite.texture = stats.sprite
@@ -26,8 +31,15 @@ func _ready():
 	
 	var placement_circle:CircleShape2D = placement_area.find_child("CollisionShape2D").shape
 	placement_circle.radius *= stats.placement_area_scale
+	
+	timer.wait_time = stats.firerate
+	timer.one_shot = false
+	timer.timeout.connect(_timer_timeout)
+	add_child(timer)
 
-
+func _timer_timeout():
+	can_shoot = true
+	
 func _process(delta: float) -> void:
 	if state == State.BUYABLE:
 		modulate = Color.GRAY
@@ -37,11 +49,18 @@ func _process(delta: float) -> void:
 	else:
 		modulate = Color.WHITE
 	
-	if state == State.PLACED and target:
+	if state == State.PLACED and target and can_shoot:
 		shoot()
 
 func shoot():
-	pass
+	look_at(target.position)
+	var bullet:Bullet = bullet_scene.instantiate()
+	bullet.position = position
+	bullet.rotation = rotation
+	bullet.stats = stats.bullet
+	get_tree().current_scene.add_child(bullet)
+	can_shoot = false
+	
 
 
 func _on_placement_area_area_entered(area: Area2D) -> void:
@@ -87,6 +106,7 @@ func place():
 	if is_placeable:
 		state = State.PLACED
 		GameManger.is_holding = false
+		timer.start()
 
 
 func _on_range_area_area_entered(area: Area2D) -> void:

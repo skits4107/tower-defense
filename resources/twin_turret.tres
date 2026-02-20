@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="TowerStats" load_steps=3 format=3 uid="uid://bgvrdg5lg50bk"]
+[gd_resource type="Resource" script_class="TowerStats" load_steps=4 format=3 uid="uid://bgvrdg5lg50bk"]
 
 [ext_resource type="Script" uid="uid://bv018xq5gl74c" path="res://scripts/tower_stats.gd" id="1_bhcfu"]
+[ext_resource type="Resource" uid="uid://d1dpiioib3p6h" path="res://resources/bullet1.tres" id="1_eeee2"]
 [ext_resource type="Texture2D" uid="uid://b62tn3wdlxsc1" path="res://sprite/Gemini_Generated_Image_5919uv5919uv5919-removebg-preview.png" id="2_0cmbr"]
 
 [resource]
@@ -8,5 +9,9 @@ script = ExtResource("1_bhcfu")
 firerate = 2.0
 fire_range = 600.0
 damge = 5.0
+cost = 10
 sprite = ExtResource("2_0cmbr")
+bullet = ExtResource("1_eeee2")
+sprite_scale = 1.0
+placement_area_scale = 1.0
 metadata/_custom_type_script = "uid://bv018xq5gl74c"

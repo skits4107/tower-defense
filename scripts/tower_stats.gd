@@ -8,7 +8,7 @@ extends Resource
 
 @export var sprite:Texture2D;
 
-@export var bullet:PackedScene;
+@export var bullet:Bullet_Resource;
 
 @export var sprite_scale:float = 1.0
 
